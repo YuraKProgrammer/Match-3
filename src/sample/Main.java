@@ -13,12 +13,12 @@ public class Main extends Application {
     @Override
     public void start(Stage PrimaryStage) throws Exception{
         var stage = new Stage();
-        var loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("GameWindow.fxml")));
+        var loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("StartWindow.fxml")));
         var root = (Parent)loader.load();
-        stage.setTitle("Java Match 3");
-        stage.setScene(new Scene(root, 1545, 800));
+        stage.setTitle("Match 3 Start");
+        stage.setScene(new Scene(root, 300, 300));
         stage.show();
-        var controller = loader.<GameWindowController>getController();
+        var controller = loader.<StartWindowController>getController();
         controller.init(stage);
         controller.setScene(stage.getScene());
     }

@@ -52,66 +52,7 @@ public class GameField {
             }
         }
     }
-/*
-    public boolean checkRowInLines() {
-        for (var x = 0; x < width; x++) {
-            for (var y = 0; y < height; y++) {
-                var v = checkVertical(x,y);
-                if (v==3){
-                    chips[x][y]=0;
-                    chips[x][y+1]=0;
-                    chips[x][y+2]=0;
-                    score++;
-                    return true;
-                }
-            }
-        }
-        for (var y = 0; y < height; y++) {
-            for (var x = 0; x < height; x++) {
-                var h = checkHorizontal(x,y);
-                if (h==3){
-                    chips[x][y]=0;
-                    chips[x+1][y]=0;
-                    chips[x+2][y]=0;
-                    score++;
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private int checkVertical(int startX ,int startY){
-        var startChip=chips[startX][startY];
-        var k=0;
-        if (startY+2<height) {
-            for (var y = startY; y < startY + 3; y++) {
-                if (chips[startX][y] == startChip) {
-                    k++;
-                }
-                else
-                    return 0;
-            }
-            return k;
-        }
-        return  k;
-    }
-
-    private int checkHorizontal(int startX ,int startY){
-        var startChip=chips[startX][startY];
-        var k=0;
-        if (startX+2<width) {
-            for (var x = startX; x < startX + 3; x++) {
-                if (chips[x][startY] == startChip)
-                    k++;
-                else
-                    k = 0;
-            }
-        }
-        return  k;
-    }
-*/
-    public void checkVoid() {
+    public void fillVoid() {
         for (var x = 0; x < width; x++) {
             for (var y = 0; y < height; y++) {
                 if (chips[x][y] == 0) {
@@ -124,5 +65,30 @@ public class GameField {
                 }
             }
         }
+    }
+
+    public void remove(Sequence sequence){
+        int bonusH=getChip(sequence.getX(),sequence.getY())+18;
+        int bonusV=getChip(sequence.getX(),sequence.getY())+9;
+        for (var x=sequence.getX(); x<sequence.getX()+sequence.getWidth(); x++){
+            for (var y = sequence.getY(); y<sequence.getY()+sequence.getHeight(); y++){
+                if (getChip(x,y)!=0) {
+                    setChip(x,y,0);
+                }
+            }
+        }
+        if (sequence.getWidth()==4)
+            setChip(sequence.getX(),sequence.getY(),bonusH);
+        if (sequence.getHeight()==4)
+            setChip(sequence.getX(),sequence.getY(),bonusV);
+        if (sequence.getWidth()==5)
+            setChip(sequence.getX(),sequence.getY(),28);
+    }
+
+    public void swap(Point point1, Point point2){
+        var chip1=getChip(point1.getX(),point1.getY());
+        var chip2=getChip(point2.getX(), point2.getY());
+        setChip(point1.getX(),point1.getY(),chip2);
+        setChip(point2.getX(),point2.getY(),chip1);
     }
 }

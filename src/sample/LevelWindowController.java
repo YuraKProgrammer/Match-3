@@ -9,8 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import models.Game;
-import models.Settings;
+import models.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,8 +18,12 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GameWindowController {
+public class LevelWindowController {
     public static final int timerDuration = 100;
+
+    LevelGenerator levelGenerator = new LevelGenerator();
+
+    Level level;
 
     @FXML
     private ImageView _field;
@@ -56,13 +59,20 @@ public class GameWindowController {
 
     public void init(Stage stage, Settings settings) {
         this.settings=settings;
+        level=levelGenerator.generate();
         _image = createImage(chipSize * game.field.getWidth(), chipSize * game.field.getHeight(), Color.BLACK);
         game.field.fillRandom();
         redraw();
         var imageFolder = getImagesFolder();
-        for (var i=1; i<29; i++) {
-            images.put(i, loadImage(imageFolder + "\\"+i+".png"));
-        }
+        images.put(1,loadImage(imageFolder+"\\1.png"));
+        images.put(2,loadImage(imageFolder+"\\2.png"));
+        images.put(3,loadImage(imageFolder+"\\3.png"));
+        images.put(4,loadImage(imageFolder+"\\4.png"));
+        images.put(5,loadImage(imageFolder+"\\5.png"));
+        images.put(6,loadImage(imageFolder+"\\6.png"));
+        images.put(7,loadImage(imageFolder+"\\7.png"));
+        images.put(8,loadImage(imageFolder+"\\8.png"));
+        images.put(9,loadImage(imageFolder+"\\9.png"));
     }
 
     private String getImagesFolder(){
@@ -77,18 +87,18 @@ public class GameWindowController {
     }
 
     private void drawChip(int x, int y, boolean selected, int number) {
-            g.drawImage(images.get(number), null, x*chipSize,y*chipSize);
-            g.setColor(Color.WHITE);
-            if (number==0)
-                g.fillRect(x * chipSize, y * chipSize, chipSize, chipSize);
-            g.setColor(Color.BLACK);
-            g.drawRect(x * chipSize, y * chipSize, chipSize, chipSize);
-            if (selected){
-                g.setColor(Color.RED);
-                g.drawRect(x * chipSize, y * chipSize, chipSize-2, chipSize-2);
-                g.drawRect(x * chipSize+1, y * chipSize+1, chipSize-3, chipSize-3);
-            }
+        g.drawImage(images.get(number), null, x*chipSize,y*chipSize);
+        g.setColor(Color.WHITE);
+        if (number==0)
+            g.fillRect(x * chipSize, y * chipSize, chipSize, chipSize);
+        g.setColor(Color.BLACK);
+        g.drawRect(x * chipSize, y * chipSize, chipSize, chipSize);
+        if (selected){
+            g.setColor(Color.RED);
+            g.drawRect(x * chipSize, y * chipSize, chipSize-2, chipSize-2);
+            g.drawRect(x * chipSize+1, y * chipSize+1, chipSize-3, chipSize-3);
         }
+    }
 
     private void redraw() {
         g = _image.createGraphics();
@@ -102,6 +112,7 @@ public class GameWindowController {
         }
         _field.setImage(SwingFXUtils.toFXImage(_image, null));
     }
+
     public void setScene(Scene scene) {
         this.scene = scene;
         this.scene.setOnMousePressed(e -> {

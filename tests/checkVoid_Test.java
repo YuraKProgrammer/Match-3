@@ -24,7 +24,7 @@ public class checkVoid_Test {
         field.setChip(1,3,11);
         field.setChip(2,3,12);
         field.setChip(3,3,13);
-        field.checkVoid();
+        field.fillVoid();
         Assertions.assertEquals(2, field.getChip(1,1));
         Assertions.assertEquals(3, field.getChip(2,1));
         Assertions.assertEquals(4, field.getChip(3,1));
