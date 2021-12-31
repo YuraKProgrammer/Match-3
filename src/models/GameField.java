@@ -1,8 +1,5 @@
 package models;
 
-import models.bonuses.Lightning;
-import models.bonuses.SimilBonus;
-
 import java.util.Random;
 
 public class GameField {
@@ -52,6 +49,13 @@ public class GameField {
             }
         }
     }
+    public void clean(){
+        for (var x = 0; x < width; x++) {
+            for (var y = 0; y < height; y++) {
+                chips[x][y] = 0;
+            }
+        }
+    }
     public void fillVoid() {
         for (var x = 0; x < width; x++) {
             for (var y = 0; y < height; y++) {
@@ -81,7 +85,7 @@ public class GameField {
             setChip(sequence.getX(),sequence.getY(),bonusH);
         if (sequence.getHeight()==4)
             setChip(sequence.getX(),sequence.getY(),bonusV);
-        if (sequence.getWidth()==5)
+        if (sequence.getWidth()==5 || sequence.getHeight()==5)
             setChip(sequence.getX(),sequence.getY(),28);
     }
 

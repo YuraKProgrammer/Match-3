@@ -1,5 +1,8 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
     public Game() {
         swapDetector = new SwapDetector(detector);
@@ -14,6 +17,8 @@ public class Game {
     }
 
     private SwapDetector swapDetector;
+
+    public void setGameField(GameField field){this.field=field;};
 
     public void setScore(int score) {
         this.score = score;
@@ -59,11 +64,44 @@ public class Game {
 
     private int secondSelectedY = -1;
 
+    private List<Sequence> list;
+
     SequenceDetector detector = new SequenceDetector();
 
     public boolean replacement() {
         Point point1 = new Point(firstSelectedX, firstSelectedY);
         Point point2 = new Point(secondSelectedX, secondSelectedY);
+        if (getFirstSelectedX()!=-1 && secondSelectedX!=-1 && firstSelectedY!=-1 && secondSelectedY!=-1) {
+            if (field.getChip(firstSelectedX, firstSelectedY)==28 && field.getChip(secondSelectedX, secondSelectedY) == 28){
+                field.clean();
+                score+=150;
+            }
+            if (field.getChip(firstSelectedX, firstSelectedY) == 28) {
+                int chip = field.getChip(secondSelectedX, secondSelectedY);
+                for (var x = 0; x < field.getWidth(); x++) {
+                    for (var y = 0; y < field.getHeight(); y++) {
+                        if (field.getChip(x, y) == chip) {
+                            field.setChip(x, y, 0);
+                            score++;
+                        }
+                    }
+                    field.setChip(firstSelectedX,firstSelectedY,0);
+                }
+            }
+            if (field.getChip(secondSelectedX, secondSelectedY) == 28) {
+                int chip = field.getChip(firstSelectedX, firstSelectedY);
+                for (var x = 0; x < field.getWidth(); x++) {
+                    for (var y = 0; y < field.getHeight(); y++) {
+                        if (field.getChip(x, y) == chip) {
+                            field.setChip(x, y, 0);
+                            score++;
+                        }
+                    }
+                    field.setChip(secondSelectedX,secondSelectedY,0);
+                }
+            }
+        }
+
         if (!swapDetector.check(field, point1, point2)) {
             return false;
         }
@@ -77,7 +115,7 @@ public class Game {
 
 
     public boolean checkSequences(){
-        var list = detector.search(field);
+        list = detector.search(field);
         if (list.isEmpty())
             return false;
         else {

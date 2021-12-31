@@ -14,19 +14,12 @@ public class SequenceDetector implements ISequenceDetector {
         for (var x=0; x<width; x++){
             for (var y=0; y<height; y++){
                 var n=0;
-                var f=field.getChip(x,y);
-                if (f>9){
-                    if (f<19){
-                        n=1;
-                    }
-                    if (f<28 && f>18){
-                        n=2;
-                    }
-                }
                 var k = horizontal(field,x,y);
-                if (k>=minSequenceLength) {
-                    if (n==2) {
-                    }
+                if (k==30)
+                    list.add(new Sequence(x,0,1,field.getHeight()));
+                if (k==60)
+                    list.add(new Sequence(0,y,field.getWidth(),1));
+                if (k>=minSequenceLength && k<6) {
                     list.add(new Sequence(x, y, k, 1));
                 }
             }
@@ -34,7 +27,11 @@ public class SequenceDetector implements ISequenceDetector {
         for (var x=0; x<width; x++){
             for (var y=0; y<height; y++){
                 var k = vertical(field,x,y);
-                if (k>=minSequenceLength)
+                if (k==30)
+                    list.add(new Sequence(x,0,1,field.getHeight()));
+                if (k==60)
+                    list.add(new Sequence(0,y,field.getWidth(),1));
+                if (k>=minSequenceLength && k<6)
                     list.add(new Sequence(x,y,1,k));
             }
         }
@@ -44,8 +41,14 @@ public class SequenceDetector implements ISequenceDetector {
     private int vertical(GameField field, int x, int y){
         var k=0;
         for (var y1=y; y1<field.getHeight(); y1++){
-            if ((field.getChip(x,y1)==field.getChip(x,y) || field.getChip(x,y1)==field.getChip(x,y)+9) && field.getChip(x,y)!=0)
+            int chip = field.getChip(x, y);
+            if ((field.getChip(x,y1)== chip-18 || field.getChip(x,y1)== chip-9 || field.getChip(x,y1)== chip || field.getChip(x,y1)== chip +9 || field.getChip(x,y1)== chip +18) && chip !=0) {
+                if(field.getChip(x,y1)== chip +9)
+                    return 30;
+                if (  field.getChip(x,y1)== chip +18)
+                    return 60;
                 k++;
+            }
             else
                 return k;
         }
@@ -56,9 +59,15 @@ public class SequenceDetector implements ISequenceDetector {
 
     private int horizontal(GameField field, int x, int y){
         var k=0;
-        for (var x1=x; x1<field.getWidth(); x1++){
-            if ((field.getChip(x1,y)==field.getChip(x,y) || field.getChip(x1,y)==field.getChip(x,y)+18) && field.getChip(x,y)!=0)
-                k++;
+        for (var x1=x; x1<field.getWidth(); x1++) {
+            int chip = field.getChip(x, y);
+            if ((field.getChip(x1, y) == chip - 18 || field.getChip(x1, y) == chip - 9 || field.getChip(x1, y) == chip || field.getChip(x1, y) == chip + 9 || field.getChip(x1, y) == chip + 18) && chip != 0){
+                if (field.getChip(x1, y) == chip + 9)
+                    return 30;
+                if (field.getChip(x1, y) == chip + 18)
+                    return 60;
+            k++;
+        }
             else
                 return k;
         }

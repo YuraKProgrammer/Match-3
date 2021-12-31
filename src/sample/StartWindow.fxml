@@ -14,7 +14,7 @@
             <Button fx:id="_sLevel" mnemonicParsing="false" text="Уровень" />
         </buttons>
       </ButtonBar>
-      <RadioButton fx:id="_p1" layoutX="71.0" layoutY="78.0" mnemonicParsing="false" text="Самоцветы">
+      <RadioButton fx:id="_p1" layoutX="71.0" layoutY="78.0" mnemonicParsing="false" selected="true" text="Самоцветы">
          <toggleGroup>
             <ToggleGroup fx:id="gr1" />
          </toggleGroup></RadioButton>
