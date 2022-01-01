@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
+import models.ImageType;
 import models.Settings;
 
 import java.util.Objects;
@@ -49,6 +50,18 @@ public class StartWindowController {
         controller.setScene(stage.getScene());
     }
     public void init(Stage stage) {
+        _p1.setOnAction(actionEvent -> {
+            detectImageType();
+        });
+        _p2.setOnAction(actionEvent -> {
+            detectImageType();
+        });
+        _p3.setOnAction(actionEvent -> {
+            detectImageType();
+        });
+        _p4.setOnAction(actionEvent -> {
+            detectImageType();
+        });
     }
     public void setScene(Scene scene) {
         this.scene = scene;
@@ -68,13 +81,17 @@ public class StartWindowController {
                 Main.showError(e);
             }
         });
-        if (_p1.isSelected())
-            settings.setNumberOfImages(1);
-        if (_p2.isSelected())
-            settings.setNumberOfImages(2);
-        if (_p3.isSelected())
-            settings.setNumberOfImages(3);
-        if (_p4.isSelected())
-            settings.setNumberOfImages(4);
+        detectImageType();
+    }
+    private void detectImageType(){
+        var selected = _p1.getToggleGroup().getSelectedToggle();
+        if (selected == _p1)
+            settings.setImageType(ImageType.crystals);
+        if (selected == _p2)
+            settings.setImageType(ImageType.fruit);
+        if (selected == _p3)
+            settings.setImageType(ImageType.vegetables);
+        if (selected == _p4)
+            settings.setImageType(ImageType.animals);
     }
 }

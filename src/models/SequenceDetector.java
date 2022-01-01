@@ -43,11 +43,14 @@ public class SequenceDetector implements ISequenceDetector {
         for (var y1=y; y1<field.getHeight(); y1++){
             int chip = field.getChip(x, y);
             if ((field.getChip(x,y1)== chip-18 || field.getChip(x,y1)== chip-9 || field.getChip(x,y1)== chip || field.getChip(x,y1)== chip +9 || field.getChip(x,y1)== chip +18) && chip !=0) {
-                if(field.getChip(x,y1)== chip +9)
-                    return 30;
-                if (  field.getChip(x,y1)== chip +18)
-                    return 60;
+                var f=0;
+                if(field.getChip(x,y1)== chip +9 || (chip>9 && chip<19))
+                    f=30;
+                if (field.getChip(x,y1)== chip +18 || (chip>18 && chip<28))
+                    f=60;
                 k++;
+                if (f>29 && k>minSequenceLength)
+                    return f;
             }
             else
                 return k;
@@ -62,9 +65,9 @@ public class SequenceDetector implements ISequenceDetector {
         for (var x1=x; x1<field.getWidth(); x1++) {
             int chip = field.getChip(x, y);
             if ((field.getChip(x1, y) == chip - 18 || field.getChip(x1, y) == chip - 9 || field.getChip(x1, y) == chip || field.getChip(x1, y) == chip + 9 || field.getChip(x1, y) == chip + 18) && chip != 0){
-                if (field.getChip(x1, y) == chip + 9)
+                if (field.getChip(x1, y) == chip + 9 || (chip>9 && chip<19))
                     return 30;
-                if (field.getChip(x1, y) == chip + 18)
+                if (field.getChip(x1, y) == chip + 18 || (chip>18 && chip<28))
                     return 60;
             k++;
         }

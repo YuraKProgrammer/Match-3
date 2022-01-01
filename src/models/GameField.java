@@ -85,7 +85,7 @@ public class GameField {
             setChip(sequence.getX(),sequence.getY(),bonusH);
         if (sequence.getHeight()==4)
             setChip(sequence.getX(),sequence.getY(),bonusV);
-        if (sequence.getWidth()==5 || sequence.getHeight()==5)
+        if ((sequence.getWidth()==5 || sequence.getHeight()==5))
             setChip(sequence.getX(),sequence.getY(),28);
     }
 

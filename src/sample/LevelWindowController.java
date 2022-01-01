@@ -77,12 +77,12 @@ public class LevelWindowController {
 
     private String getImagesFolder(){
         String applicationDir="D:\\Школьные задания\\Программирование\\Match-3\\images";
-        if (settings.getNumberOfImages()==2)
-            applicationDir=applicationDir+"2";
-        if (settings.getNumberOfImages()==3)
-            applicationDir=applicationDir+"3";
-        if (settings.getNumberOfImages()==4)
-            applicationDir=applicationDir+"4";
+        switch (settings.getImageType()){
+            case fruit -> applicationDir=applicationDir+"2";
+            case vegetables -> applicationDir=applicationDir+"3";
+            case animals -> applicationDir=applicationDir+"4";
+            default -> applicationDir=applicationDir;
+        }
         return applicationDir;
     }
 

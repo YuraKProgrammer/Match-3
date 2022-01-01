@@ -1,12 +1,12 @@
 package models;
 public class Settings {
-    public int getNumberOfImages() {
-        return numberOfImages;
+    public ImageType getImageType() {
+        return imageType;
     }
 
-    public void setNumberOfImages(int numberOfImages) {
-        this.numberOfImages = numberOfImages;
+    public void setImageType(ImageType imageType) {
+        this.imageType = imageType;
     }
 
-    int numberOfImages=1;
+    ImageType imageType = ImageType.crystals;
 }
