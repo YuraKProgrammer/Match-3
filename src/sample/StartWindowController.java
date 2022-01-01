@@ -86,12 +86,12 @@ public class StartWindowController {
     private void detectImageType(){
         var selected = _p1.getToggleGroup().getSelectedToggle();
         if (selected == _p1)
-            settings.setImageType(ImageType.crystals);
+            settings.setImageType(ImageType.CRYSTALS);
         if (selected == _p2)
-            settings.setImageType(ImageType.fruit);
+            settings.setImageType(ImageType.FRUIT);
         if (selected == _p3)
-            settings.setImageType(ImageType.vegetables);
+            settings.setImageType(ImageType.VEGETABLES);
         if (selected == _p4)
-            settings.setImageType(ImageType.animals);
+            settings.setImageType(ImageType.ANIMALS);
     }
 }

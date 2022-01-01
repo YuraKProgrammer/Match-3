@@ -8,5 +8,5 @@ public class Settings {
         this.imageType = imageType;
     }
 
-    ImageType imageType = ImageType.crystals;
+    ImageType imageType = ImageType.CRYSTALS;
 }

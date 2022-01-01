@@ -48,6 +48,8 @@ public class LevelWindowController {
 
     private Map<Integer,BufferedImage> images = new HashMap<>();
 
+    private IImagesFolderDetector imagesFolderDetector = new ImagesFolderDetector();
+
     private static BufferedImage createImage(int width, int height, Color color) {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D g = image.createGraphics();
@@ -58,32 +60,18 @@ public class LevelWindowController {
     }
 
     public void init(Stage stage, Settings settings) {
-        this.settings=settings;
-        level=levelGenerator.generate();
+        this.settings = settings;
         _image = createImage(chipSize * game.field.getWidth(), chipSize * game.field.getHeight(), Color.BLACK);
         game.field.fillRandom();
         redraw();
-        var imageFolder = getImagesFolder();
-        images.put(1,loadImage(imageFolder+"\\1.png"));
-        images.put(2,loadImage(imageFolder+"\\2.png"));
-        images.put(3,loadImage(imageFolder+"\\3.png"));
-        images.put(4,loadImage(imageFolder+"\\4.png"));
-        images.put(5,loadImage(imageFolder+"\\5.png"));
-        images.put(6,loadImage(imageFolder+"\\6.png"));
-        images.put(7,loadImage(imageFolder+"\\7.png"));
-        images.put(8,loadImage(imageFolder+"\\8.png"));
-        images.put(9,loadImage(imageFolder+"\\9.png"));
-    }
-
-    private String getImagesFolder(){
-        String applicationDir="D:\\Школьные задания\\Программирование\\Match-3\\images";
-        switch (settings.getImageType()){
-            case fruit -> applicationDir=applicationDir+"2";
-            case vegetables -> applicationDir=applicationDir+"3";
-            case animals -> applicationDir=applicationDir+"4";
-            default -> applicationDir=applicationDir;
+        try {
+            var imageFolder = imagesFolderDetector.getFolder(settings.getImageType());
+            for (var i = 1; i < 29; i++) {
+                images.put(i, loadImage(imageFolder + "\\" + i + ".png"));
+            }
+        } catch (Exception e) {
+            Main.showError(e);
         }
-        return applicationDir;
     }
 
     private void drawChip(int x, int y, boolean selected, int number) {

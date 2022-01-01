@@ -9,9 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import models.Game;
-import models.ImageType;
-import models.Settings;
+import models.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -46,6 +44,8 @@ public class GameWindowController {
 
     private Map<Integer,BufferedImage> images = new HashMap<>();
 
+    private IImagesFolderDetector imagesFolderDetector = new ImagesFolderDetector();
+
     private static BufferedImage createImage(int width, int height, Color color) {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D g = image.createGraphics();
@@ -56,25 +56,18 @@ public class GameWindowController {
     }
 
     public void init(Stage stage, Settings settings) {
-        this.settings=settings;
-        _image = createImage(chipSize * game.field.getWidth(), chipSize * game.field.getHeight(), Color.BLACK);
+        this.settings = settings;
+        _image = createImage(chipSize * game.field.getWidth(), chipSize * game.field.getHeight(), Color.WHITE);
         game.field.fillRandom();
         redraw();
-        var imageFolder = getImagesFolder();
-        for (var i=1; i<29; i++) {
-            images.put(i, loadImage(imageFolder + "\\"+i+".png"));
+        try {
+            var imageFolder = imagesFolderDetector.getFolder(settings.getImageType());
+            for (var i = 1; i < 29; i++) {
+                images.put(i, loadImage(imageFolder + "\\" + i + ".png"));
+            }
+        } catch (Exception e) {
+            Main.showError(e);
         }
-    }
-
-    private String getImagesFolder(){
-        String applicationDir="D:\\Школьные задания\\Программирование\\Match-3\\images";
-        switch (settings.getImageType()){
-            case fruit -> applicationDir=applicationDir+"2";
-            case vegetables -> applicationDir=applicationDir+"3";
-            case animals -> applicationDir=applicationDir+"4";
-            default -> applicationDir=applicationDir;
-        }
-        return applicationDir;
     }
 
     private void drawChip(int x, int y, boolean selected, int number) {

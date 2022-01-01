@@ -4,17 +4,17 @@ public enum ImageType {
     /**
      * Кристаллы
      */
-    crystals,
+    CRYSTALS,
     /**
      * Фрукты
      */
-    fruit,
+    FRUIT,
     /**
      * Овощи
      */
-    vegetables,
+    VEGETABLES,
     /**
      * Животные
      */
-    animals
+    ANIMALS
 }
