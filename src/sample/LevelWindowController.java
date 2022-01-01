@@ -74,7 +74,14 @@ public class LevelWindowController {
         }
     }
 
-    private void drawChip(int x, int y, boolean selected, int number) {
+    private void drawChip(int x, int y, boolean selected, Chip chip) {
+        var number=chip.getImageType().ordinal();
+        if (chip.isVerticalBonus())
+            number+=9;
+        if (chip.isHorizontalBonus())
+            number+=18;
+        if (chip.getImageType()==ChipImageType.SUPERSTAR)
+            number=28;
         g.drawImage(images.get(number), null, x*chipSize,y*chipSize);
         g.setColor(Color.WHITE);
         if (number==0)

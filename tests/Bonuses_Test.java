@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class Bonuses_Test {
+    /*
     @Test
     public void line_test1(){
         Game game = new Game();
@@ -50,4 +51,6 @@ public class Bonuses_Test {
         game.setGameField(field);
         game.checkSequences();
     }
+
+     */
 }

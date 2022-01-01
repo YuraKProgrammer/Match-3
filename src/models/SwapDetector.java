@@ -20,7 +20,7 @@ public class SwapDetector {
         if (!(Math.abs(point1.getX() - point2.getX()) < 2 && Math.abs(point1.getY() - point2.getY()) < 2)) {
             return false;
         }
-        if (field.getChip(point1.getX(), point1.getY()) != 28 && field.getChip(point2.getX(), point2.getY()) != 28) {
+        if (!field.getChip(point1.getX(), point1.getY()).isSuperStar() && !field.getChip(point2.getX(), point2.getY()).isSuperStar()) {
             if (!(Math.abs(point1.getX() - point2.getX()) == 1 && Math.abs(point1.getY() - point2.getY()) == 1)) {
                 if (Math.abs(point1.getX() - point2.getX()) < 2 && Math.abs(point1.getY() - point2.getY()) < 2) {
                     try {

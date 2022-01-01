@@ -72,32 +72,32 @@ public class Game {
         Point point1 = new Point(firstSelectedX, firstSelectedY);
         Point point2 = new Point(secondSelectedX, secondSelectedY);
         if (getFirstSelectedX()!=-1 && secondSelectedX!=-1 && firstSelectedY!=-1 && secondSelectedY!=-1) {
-            if (field.getChip(firstSelectedX, firstSelectedY)==28 && field.getChip(secondSelectedX, secondSelectedY) == 28){
+            if (field.getChipValue(firstSelectedX, firstSelectedY)==ChipImageType.SUPERSTAR && field.getChipValue(secondSelectedX, secondSelectedY) == ChipImageType.SUPERSTAR){
                 field.clean();
                 score+=150;
             }
-            if (field.getChip(firstSelectedX, firstSelectedY) == 28) {
-                int chip = field.getChip(secondSelectedX, secondSelectedY);
+            if (field.getChipValue(firstSelectedX, firstSelectedY) == ChipImageType.SUPERSTAR) {
+                var chip = field.getChipValue(secondSelectedX, secondSelectedY);
                 for (var x = 0; x < field.getWidth(); x++) {
                     for (var y = 0; y < field.getHeight(); y++) {
-                        if (field.getChip(x, y) == chip) {
-                            field.setChip(x, y, 0);
+                        if (field.getChipValue(x, y) == chip) {
+                            field.setChip(x, y, null);
                             score++;
                         }
                     }
-                    field.setChip(firstSelectedX,firstSelectedY,0);
+                    field.setChip(firstSelectedX,firstSelectedY,null);
                 }
             }
-            if (field.getChip(secondSelectedX, secondSelectedY) == 28) {
-                int chip = field.getChip(firstSelectedX, firstSelectedY);
+            if (field.getChipValue(secondSelectedX, secondSelectedY) == ChipImageType.SUPERSTAR) {
+                var chip = field.getChipValue(firstSelectedX, firstSelectedY);
                 for (var x = 0; x < field.getWidth(); x++) {
                     for (var y = 0; y < field.getHeight(); y++) {
-                        if (field.getChip(x, y) == chip) {
-                            field.setChip(x, y, 0);
+                        if (field.getChipValue(x, y) == chip) {
+                            field.setChip(x, y, null);
                             score++;
                         }
                     }
-                    field.setChip(secondSelectedX,secondSelectedY,0);
+                    field.setChip(secondSelectedX,secondSelectedY,null);
                 }
             }
         }

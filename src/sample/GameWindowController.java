@@ -70,19 +70,31 @@ public class GameWindowController {
         }
     }
 
-    private void drawChip(int x, int y, boolean selected, int number) {
-            g.drawImage(images.get(number), null, x*chipSize,y*chipSize);
-            g.setColor(Color.WHITE);
-            if (number==0)
-                g.fillRect(x * chipSize, y * chipSize, chipSize, chipSize);
-            g.setColor(Color.BLACK);
-            g.drawRect(x * chipSize, y * chipSize, chipSize, chipSize);
-            if (selected){
-                g.setColor(Color.RED);
-                g.drawRect(x * chipSize, y * chipSize, chipSize-2, chipSize-2);
-                g.drawRect(x * chipSize+1, y * chipSize+1, chipSize-3, chipSize-3);
-            }
+    private void drawChip(int x, int y, boolean selected, Chip chip) {
+        int number;
+        if (chip==null)
+            number=0;
+        else {
+            number = chip.getImageType().ordinal() + 1;
+            if (chip.isVerticalBonus())
+                number += 9;
+            if (chip.isHorizontalBonus())
+                number += 18;
+            if (chip.getImageType() == ChipImageType.SUPERSTAR)
+                number = 28;
         }
+        g.drawImage(images.get(number), null, x*chipSize,y*chipSize);
+        g.setColor(Color.WHITE);
+        if (number==0)
+            g.fillRect(x * chipSize, y * chipSize, chipSize, chipSize);
+        g.setColor(Color.BLACK);
+        g.drawRect(x * chipSize, y * chipSize, chipSize, chipSize);
+        if (selected){
+            g.setColor(Color.RED);
+            g.drawRect(x * chipSize, y * chipSize, chipSize-2, chipSize-2);
+            g.drawRect(x * chipSize+1, y * chipSize+1, chipSize-3, chipSize-3);
+        }
+    }
 
     private void redraw() {
         g = _image.createGraphics();

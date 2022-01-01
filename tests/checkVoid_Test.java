@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class checkVoid_Test {
+    /*
     @Test
     public void checkVoid_Test1(){
         GameField field= new GameField(4,4);
@@ -29,4 +30,5 @@ public class checkVoid_Test {
         Assertions.assertEquals(3, field.getChip(2,1));
         Assertions.assertEquals(4, field.getChip(3,1));
     }
+     */
 }
