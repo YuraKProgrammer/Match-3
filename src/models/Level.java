@@ -1,11 +1,11 @@
 package models;
 
 public class Level {
-    public int getChipType() {
+    public ChipImageType getChipType() {
         return ChipType;
     }
 
-    public void setChipType(int chipType) {
+    public void setChipType(ChipImageType chipType) {
         ChipType = chipType;
     }
 
@@ -25,7 +25,7 @@ public class Level {
         this.countOfMoves = countOfMoves;
     }
 
-    private int ChipType;
+    private ChipImageType ChipType;
     private int countOfChips;
     private int countOfMoves;
 }

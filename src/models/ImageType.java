@@ -16,5 +16,9 @@ public enum ImageType {
     /**
      * Животные
      */
-    ANIMALS
+    ANIMALS,
+    /**
+     * Растения из PvZ2
+     */
+    PLANTS
 }

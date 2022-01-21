@@ -1,6 +1,8 @@
 package models;
 
-import java.util.ArrayList;
+import models.detectors.SequenceDetector;
+import models.detectors.SwapDetector;
+
 import java.util.List;
 
 public class Game {
@@ -11,6 +13,13 @@ public class Game {
     public GameField field = new GameField(15, 10);
 
     private int score;
+
+    public int getCountOfMoves() {
+        return countOfMoves;
+    }
+
+    private int countOfMoves=0;
+
 
     public int getScore() {
         return score;
@@ -110,6 +119,7 @@ public class Game {
         secondSelectedX = -1;
         firstSelectedY = -1;
         secondSelectedY = -1;
+        countOfMoves++;
         return true;
     }
 

@@ -10,6 +10,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.*;
+import models.detectors.IImagesFolderDetector;
+import models.detectors.ImagesFolderDetector;
+import models.generators.LevelGenerator;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -21,14 +24,14 @@ import java.util.Map;
 public class LevelWindowController {
     public static final int timerDuration = 100;
 
-    LevelGenerator levelGenerator = new LevelGenerator();
-
-    Level level;
-
     @FXML
     private ImageView _field;
     @FXML
-    private Text _score;
+    private ImageView _chipType;
+    @FXML
+    private Text _countOfChips;
+    @FXML
+    private Text _countOfMoves;
 
     private Scene scene;
 
@@ -37,6 +40,8 @@ public class LevelWindowController {
     private Game game = new Game();
 
     private BufferedImage _image;
+
+    private BufferedImage _chipTypeImage;
 
     private int chipSize = 75;
 
@@ -50,6 +55,10 @@ public class LevelWindowController {
 
     private IImagesFolderDetector imagesFolderDetector = new ImagesFolderDetector();
 
+    private Level level = new Level();
+
+    private LevelGenerator levelGenerator = new LevelGenerator();
+
     private static BufferedImage createImage(int width, int height, Color color) {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D g = image.createGraphics();
@@ -60,8 +69,10 @@ public class LevelWindowController {
     }
 
     public void init(Stage stage, Settings settings) {
+        level=levelGenerator.generate();
         this.settings = settings;
-        _image = createImage(chipSize * game.field.getWidth(), chipSize * game.field.getHeight(), Color.BLACK);
+        _image = createImage(chipSize * game.field.getWidth(), chipSize * game.field.getHeight(), Color.WHITE);
+        _chipTypeImage = createImage(chipSize, chipSize, Color.WHITE);
         game.field.fillRandom();
         redraw();
         try {
@@ -72,17 +83,24 @@ public class LevelWindowController {
         } catch (Exception e) {
             Main.showError(e);
         }
+        drawChipType();
     }
 
     private void drawChip(int x, int y, boolean selected, Chip chip) {
-        var number=chip.getImageType().ordinal();
-        if (chip.isVerticalBonus())
-            number+=9;
-        if (chip.isHorizontalBonus())
-            number+=18;
-        if (chip.getImageType()==ChipImageType.SUPERSTAR)
-            number=28;
-        g.drawImage(images.get(number), null, x*chipSize,y*chipSize);
+        int number;
+        if (chip==null)
+            number=0;
+        else {
+            number = chip.getImageType().ordinal() + 1;
+            if (chip.isVerticalBonus())
+                number += 9;
+            if (chip.isHorizontalBonus())
+                number += 18;
+            if (chip.getImageType() == ChipImageType.SUPERSTAR)
+                number = 28;
+        }
+        BufferedImage img = images.get(number);
+        g.drawImage(img, null, x*chipSize,y*chipSize);
         g.setColor(Color.WHITE);
         if (number==0)
             g.fillRect(x * chipSize, y * chipSize, chipSize, chipSize);
@@ -108,6 +126,26 @@ public class LevelWindowController {
         _field.setImage(SwingFXUtils.toFXImage(_image, null));
     }
 
+    private  void drawChipType(){
+        var g=_chipTypeImage.createGraphics();
+        var number=0;
+        switch (level.getChipType()){
+            case T1 -> number=1;
+            case T2 -> number=2;
+            case T3 -> number=3;
+            case T4 -> number=4;
+            case T5 -> number=5;
+            case T6 -> number=6;
+            case T7 -> number=7;
+            case T8 -> number=8;
+            case T9 -> number=9;
+        }
+
+        BufferedImage img = images.get(number);
+        g.drawImage(img, null, 0,0);
+        g.dispose();
+        _chipType.setImage(SwingFXUtils.toFXImage(_chipTypeImage, null));
+    }
     public void setScene(Scene scene) {
         this.scene = scene;
         this.scene.setOnMousePressed(e -> {
@@ -140,7 +178,30 @@ public class LevelWindowController {
                             game.checkSequences();
                             game.field.fillVoid();
                             redraw();
-                            _score.setText(String.valueOf(game.getScore()));
+                            var countOfChips=0;
+                            switch (level.getChipType()){
+                                case T1 -> countOfChips=game.field.getCountChip1();
+                                case T2 -> countOfChips=game.field.getCountChip2();
+                                case T3 -> countOfChips=game.field.getCountChip3();
+                                case T4 -> countOfChips=game.field.getCountChip4();
+                                case T5 -> countOfChips=game.field.getCountChip5();
+                                case T6 -> countOfChips=game.field.getCountChip6();
+                                case T7 -> countOfChips=game.field.getCountChip7();
+                                case T8 -> countOfChips=game.field.getCountChip8();
+                                case T9 -> countOfChips=game.field.getCountChip9();
+                            }
+                            var t1=level.getCountOfChips()-countOfChips;
+                            _countOfChips.setText(String.valueOf(t1));
+                            if (t1<=0){
+                                _countOfChips.setText("++");
+                                _countOfMoves.setText("Победа");
+                            }
+                            var t2 = level.getCountOfMoves() - game.getCountOfMoves();
+                            _countOfMoves.setText(t2 + " ходов");
+                            if (t2<=0) {
+                                _countOfChips.setText("--");
+                                _countOfMoves.setText("Проигрыш");
+                            }
                         }
                 )
         );

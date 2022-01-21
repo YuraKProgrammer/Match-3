@@ -1,46 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LevelWindowController">
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1545.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LevelWindowController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0">
-         <children>
-            <ImageView fitHeight="77.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" />
-            <Text fx:id="_ch" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-         </children>
-      </VBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <VBox prefHeight="606.0" prefWidth="100.0">
-               <children>
-                  <Text fx:id="_score" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="39.26876926422119">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <ImageView fx:id="_field" fitHeight="750.0" fitWidth="1125.0" pickOnBounds="true" preserveRatio="true" />
-      <Text fx:id="_score" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER">
+      <ImageView fx:id="_field" fitHeight="750.0" fitWidth="1125.0" layoutX="210.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="_countOfChips" layoutX="38.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="57.80624008178711" AnchorPane.topAnchor="20.0">
          <font>
-            <Font size="22.0" />
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="_chipType" fitHeight="75.0" fitWidth="75.0" layoutX="108.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="10.0" />
+      <Text fx:id="_countOfMoves" layoutX="38.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0 ходов" wrappingWidth="154.73828125">
+         <font>
+            <Font size="36.0" />
          </font>
       </Text>
    </children>
-</GridPane>
+</AnchorPane>

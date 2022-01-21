@@ -1,13 +1,5 @@
 package tests;
 
-import models.GameField;
-import models.Sequence;
-import models.SequenceDetector;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
 public class SequenceDetector_Test {
     /*
     @Test

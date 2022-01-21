@@ -1,4 +1,6 @@
-package models;
+package models.generators;
+
+import models.ChipImageType;
 
 import java.util.Random;
 

@@ -21,5 +21,6 @@
       <RadioButton fx:id="_p2" layoutX="71.0" layoutY="96.0" mnemonicParsing="false" text="Фрукты" toggleGroup="$gr1" />
       <RadioButton fx:id="_p3" layoutX="71.0" layoutY="114.0" mnemonicParsing="false" text="Овощи" toggleGroup="$gr1" />
       <RadioButton fx:id="_p4" layoutX="72.0" layoutY="132.0" mnemonicParsing="false" text="Животные" toggleGroup="$gr1" />
+      <RadioButton fx:id="_p5" layoutX="72.0" layoutY="150.0" mnemonicParsing="false" text="PvZ" toggleGroup="$gr1" />
    </children>
 </AnchorPane>

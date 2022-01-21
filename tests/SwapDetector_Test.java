@@ -1,12 +1,10 @@
 package tests;
 
 import models.*;
+import models.detectors.SwapDetector;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import tests.mocks.SequenceDetectorMock;
-
-import java.util.ArrayList;
 
 import static org.mockito.Matchers.any;
 

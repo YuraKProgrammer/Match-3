@@ -1,4 +1,7 @@
-package models;
+package models.detectors;
+
+import models.GameField;
+import models.Sequence;
 
 import java.util.List;
 

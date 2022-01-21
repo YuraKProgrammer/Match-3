@@ -10,6 +10,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.*;
+import models.detectors.IImagesFolderDetector;
+import models.detectors.ImagesFolderDetector;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

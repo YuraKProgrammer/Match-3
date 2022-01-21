@@ -25,6 +25,8 @@ public class StartWindowController {
     private RadioButton _p3;
     @FXML
     private RadioButton _p4;
+    @FXML
+    private RadioButton _p5;
     Settings settings = new Settings();
     Scene scene;
     public void startScoreGame(Stage PrimaryStage) throws Exception{
@@ -62,6 +64,9 @@ public class StartWindowController {
         _p4.setOnAction(actionEvent -> {
             detectImageType();
         });
+        _p5.setOnAction(actionEvent -> {
+            detectImageType();
+        });
     }
     public void setScene(Scene scene) {
         this.scene = scene;
@@ -93,5 +98,7 @@ public class StartWindowController {
             settings.setImageType(ImageType.VEGETABLES);
         if (selected == _p4)
             settings.setImageType(ImageType.ANIMALS);
+        if (selected == _p5)
+            settings.setImageType(ImageType.PLANTS);
     }
 }

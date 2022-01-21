@@ -37,4 +37,14 @@ public class Chip {
     public boolean isSuperStar(){
         return imageType==ChipImageType.SUPERSTAR;
     }
+
+    @Override
+    public String toString(){
+        var s=imageType.toString();
+        if (isVerticalBonus)
+            s=s+" (вертикальный бонус)";
+        if (isHorizontalBonus)
+            s=s+" (горизонтальный бонус)";
+        return s;
+    }
 }

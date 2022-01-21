@@ -2,7 +2,7 @@ package tests.mocks;
 
 import models.ChipImageType;
 import models.GameField;
-import models.ISequenceDetector;
+import models.detectors.ISequenceDetector;
 import models.Sequence;
 
 import java.util.ArrayList;
